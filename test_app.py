@@ -39,10 +39,6 @@ def test_api_get_workouts(client):
     assert data[0]["workout"] == "Cycling"
     assert data[0]["duration"] == 45
 
-# -----------------------------
-# Extra test cases for robustness
-# -----------------------------
-
 def test_add_missing_workout(client):
     """Missing workout name should return 400."""
     response = client.post("/add", data={"workout": "", "duration": "20"})

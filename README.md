@@ -1,11 +1,12 @@
-# ACEest Fitness and Gym 🏋️‍♀️
+# ACEest Fitness and Gym
 
-A simple **Flask-based fitness tracker** for managing workouts, built as part of the *Introduction to DevOps Assignment - 1 (2025)*.  
+A simple **Flask-based fitness tracker** for managing workouts, built as part of the _Introduction to DevOps Assignment - 1 (2025)_.  
 This project demonstrates **Flask development, unit testing with Pytest, Docker containerization, and CI/CD with GitHub Actions**.
 
 ---
 
-## 🚀 Features
+## Features
+
 - Add workouts with duration (minutes).
 - View logged workouts on a web page.
 - Access workouts as JSON via `/api/workouts`.
@@ -15,25 +16,27 @@ This project demonstrates **Flask development, unit testing with Pytest, Docker 
 
 ---
 
-## 📂 Project Structure
+## Project Structure
+
 ```
-.
-├── app.py                  # Flask application
-├── test_app.py             # Pytest unit tests
-├── requirements.txt        # Python dependencies
-├── Dockerfile              # Containerization
-└── .github/workflows/ci.yml # GitHub Actions CI/CD pipeline
+app.py                  # Flask application
+test_app.py             # Pytest unit tests
+requirements.txt        # Python dependencies
+Dockerfile              # Containerization
+.github/workflows/ci.yml # GitHub Actions CI/CD pipeline
 ```
 
 ---
 
-## 🖥️ Running Locally
+## Running Locally
 
 ### Prerequisites
+
 - Python 3.11+
 - pip
 
 ### Setup
+
 ```bash
 # Clone repo
 git clone <your-repo-url>
@@ -50,14 +53,16 @@ App will run at: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## 🧪 Running Tests Locally
+## Running Tests Locally
+
 ```bash
 pytest -v
 ```
 
 ---
 
-## 🐳 Running with Docker
+## Running with Docker
+
 ```bash
 # Build the Docker image
 docker build -t aceest-fitness .
@@ -70,8 +75,10 @@ Then visit [http://localhost:5000](http://localhost:5000).
 
 ---
 
-## ⚙️ CI/CD with GitHub Actions
+## CI/CD with GitHub Actions
+
 Every push to `main` triggers the workflow:
+
 1. Install dependencies
 2. Run **Pytest** locally
 3. Build Docker image
@@ -81,15 +88,12 @@ You can view runs under **Actions tab** in GitHub.
 
 ---
 
-## 📖 Assignment Deliverables Checklist
-- [x] Flask application (`app.py`)
-- [x] Unit tests (`test_app.py`)
-- [x] Dockerfile
-- [x] GitHub Actions CI/CD (`ci.yml`)
-- [x] Documentation (`README.md`)
+## Assignment Deliverables Checklist
+
+- Flask application (`app.py`)
+- Unit tests (`test_app.py`)
+- Dockerfile
+- GitHub Actions CI/CD (`ci.yml`)
+- Documentation (`README.md`)
 
 ---
-
-## 👩‍💻 Author
-**ACEest DevOps Student**  
-Built for *Introduction to DevOps Assignment - 1 (2025)*
