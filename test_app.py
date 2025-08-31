@@ -1,11 +1,3 @@
-# Uses Flask’s built-in test_client for HTTP requests.
-# Each test clears the workout list so results don’t bleed across tests.
-# Covers:
-# Home page render.
-# Adding valid workouts.
-# Handling invalid duration.
-# JSON API response.
-
 import pytest
 from app import app, workouts
 
@@ -46,3 +38,36 @@ def test_api_get_workouts(client):
     assert isinstance(data, list)
     assert data[0]["workout"] == "Cycling"
     assert data[0]["duration"] == 45
+
+# -----------------------------
+# Extra test cases for robustness
+# -----------------------------
+
+def test_add_missing_workout(client):
+    """Missing workout name should return 400."""
+    response = client.post("/add", data={"workout": "", "duration": "20"})
+    assert response.status_code == 400
+    assert b"Please provide both workout and duration" in response.data
+
+def test_add_missing_duration(client):
+    """Missing duration should return 400."""
+    response = client.post("/add", data={"workout": "Swimming", "duration": ""})
+    assert response.status_code == 400
+    assert b"Please provide both workout and duration" in response.data
+
+def test_multiple_workouts(client):
+    """Adding multiple workouts should keep track of all of them."""
+    client.post("/add", data={"workout": "Pushups", "duration": "10"})
+    client.post("/add", data={"workout": "Situps", "duration": "15"})
+    response = client.get("/api/workouts")
+    data = response.get_json()
+    assert len(data) == 2
+    assert data[0]["workout"] == "Pushups"
+    assert data[1]["workout"] == "Situps"
+
+def test_home_page_after_add(client):
+    """Home page should show the workout after it's added."""
+    client.post("/add", data={"workout": "Jump Rope", "duration": "5"})
+    response = client.get("/")
+    assert b"Jump Rope" in response.data
+    assert b"5 minutes" in response.data
