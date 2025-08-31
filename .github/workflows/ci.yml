@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python (so we can run tests without Docker too)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Run tests with pytest
+      - name: Run Pytest
+        run: pytest --maxfail=1 --disable-warnings -q
+
+      # Step 5: Build Docker image
+      - name: Build Docker image
+        run: docker build -t aceest-fitness .
+
+      # Step 6: Run tests inside Docker container (extra validation)
+      - name: Run tests inside Docker
+        run: |
+          docker run --rm aceest-fitness pytest
